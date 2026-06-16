@@ -1,5 +1,5 @@
 import { ArrowRight, Wifi } from "lucide-react";
-
+import { LaserFlow } from "./LaserFlow";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -64,14 +64,6 @@ const Hero = (props: Props) => {
       <div className="container mx-auto">
         <div className="flex flex-col gap-5">
           <div className="relative isolate flex flex-col gap-5">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute top-1/2 left-1/2 -z-10 mx-auto size-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-border mask-[linear-gradient(to_top,transparent,transparent,white,white,white,transparent,transparent)] p-16 [-webkit-mask-image:linear-gradient(to_top,transparent,transparent,white,white,white,transparent,transparent)] md:size-[1300px] md:p-32"
-            >
-              <div className="size-full rounded-full border border-border p-16 md:p-32">
-                <div className="size-full rounded-full border border-border" />
-              </div>
-            </div>
             <span className="mx-auto flex size-16 items-center justify-center rounded-full border md:size-20">
               {icon}
             </span>

@@ -1,5 +1,141 @@
-"use client"
+## Integrate the <LaserFlow /> component from React Bits
 
+You are helping integrate an open-source React component into an existing application.
+
+### Component: LaserFlow
+### Variant: TypeScript + Tailwind
+### Dependencies: three
+
+---
+
+### Usage Example
+```jsx
+import LaserFlow from './LaserFlow';
+import { useRef } from 'react';
+
+// NOTE: You can also adjust the variables in the shader for super detailed customization
+
+// Basic Usage
+<div style={{ height: '500px', position: 'relative', overflow: 'hidden' }}>
+  <LaserFlow />
+</div>
+
+// Image Example Interactive Reveal Effect
+function LaserFlowBoxExample() {
+  const revealImgRef = useRef(null);
+
+  return (
+    <div 
+      style={{ 
+        height: '800px', 
+        position: 'relative', 
+        overflow: 'hidden',
+        backgroundColor: '#120F17'
+      }}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const el = revealImgRef.current;
+        if (el) {
+          el.style.setProperty('--mx', `${x}px`);
+          el.style.setProperty('--my', `${y + rect.height * 0.5}px`);
+        }
+      }}
+      onMouseLeave={() => {
+        const el = revealImgRef.current;
+        if (el) {
+          el.style.setProperty('--mx', '-9999px');
+          el.style.setProperty('--my', '-9999px');
+        }
+      }}
+    >
+      <LaserFlow
+        horizontalBeamOffset={0.1}
+        verticalBeamOffset={0.0}
+        color="#FF79C6"
+      />
+      
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '86%',
+        height: '60%',
+        backgroundColor: '#120F17',
+        borderRadius: '20px',
+        border: '2px solid #FF79C6',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '2rem',
+        zIndex: 6
+      }}>
+        {/* Your content here */}
+      </div>
+
+      <img
+        ref={revealImgRef}
+        src="/path/to/image.jpg"
+        alt="Reveal effect"
+        style={{
+          position: 'absolute',
+          width: '100%',
+          top: '-50%',
+          zIndex: 5,
+          mixBlendMode: 'lighten',
+          opacity: 0.3,
+          pointerEvents: 'none',
+          '--mx': '-9999px',
+          '--my': '-9999px',
+          WebkitMaskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+          maskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+          WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat'
+        }}
+  horizontalSizing={0.99}
+  wispDensity={1.4}
+  wispSpeed={19}
+  wispIntensity={3.3}
+  flowSpeed={0.22}
+  flowStrength={0.2}
+  fogIntensity={0.81}
+  fogScale={0.1}
+  fogFallSpeed={1.36}
+  decay={1.21}
+  falloffStart={0.75}
+/>
+    </div>
+  );
+}
+```
+
+### Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| horizontalBeamOffset | number | 0.1 | Horizontal offset of the beam (0–1 of canvas width). |
+| verticalBeamOffset | number | 0.0 | Vertical offset of the beam (0–1 of canvas height). |
+| horizontalSizing | number | 0.5 | Horizontal sizing factor of the beam footprint. |
+| verticalSizing | number | 2.0 | Vertical sizing factor of the beam footprint. |
+| wispDensity | number | 1 | Density of micro-streak wisps. |
+| wispSpeed | number | 15.0 | Speed of wisp motion. |
+| wispIntensity | number | 5.0 | Brightness of wisps. |
+| flowSpeed | number | 0.35 | Speed of the beam’s flow modulation. |
+| flowStrength | number | 0.25 | Strength of the beam’s flow modulation. |
+| fogIntensity | number | 0.45 | Overall volumetric fog intensity. |
+| fogScale | number | 0.3 | Spatial scale for the fog noise. |
+| fogFallSpeed | number | 0.6 | Drift speed for the fog field. |
+| mouseTiltStrength | number | 0.01 | How much mouse x tilts the fog volume. |
+| mouseSmoothTime | number | 0.0 | Pointer smoothing time (seconds). |
+| decay | number | 1.1 | Beam decay shaping for sampling envelope. |
+| falloffStart | number | 1.2 | Falloff start radius used in inverse-square blending. |
+| dpr | number | auto | Device pixel ratio override (defaults to window.devicePixelRatio). |
+| color | string | #FF79C6 | Beam color (hex). |
+
+### Full Component Source
+```tsx
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -612,3 +748,11 @@ export const LaserFlow: React.FC<Props> = ({
 };
 
 export default LaserFlow;
+
+```
+
+### Integration Instructions
+1. Install any listed dependencies.
+2. Copy the component source into the appropriate directory in the project.
+3. Import and render the component using the usage example above as a starting point.
+4. Adjust props as needed for the specific use case — refer to the props table for all available options.
