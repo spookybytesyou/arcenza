@@ -1,29 +1,43 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import * as THREE from "three";
+
+interface VantaWindow extends Window {
+  THREE?: typeof THREE;
+  VANTA?: {
+    FOG: (options: {
+      el: HTMLElement;
+      mouseControls: boolean;
+      touchControls: boolean;
+      gyroControls: boolean;
+      minHeight: number;
+      minWidth: number;
+      highlightColor: number;
+      midtoneColor: number;
+      lowlightColor: number;
+      baseColor: number;
+      blurFactor: number;
+      speed: number;
+      zoom: number;
+    }) => { destroy: () => void };
+  };
+}
 
 export function RealisticFogBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const vantaEffectRef = useRef<any>(null);
+  const vantaEffectRef = useRef<{ destroy: () => void } | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
     const loadScripts = async () => {
-      // 1. Load Three.js if not already loaded on window
-      if (!(window as any).THREE) {
-        await new Promise<void>((resolve, reject) => {
-          const script = document.createElement("script");
-          script.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js";
-          script.async = true;
-          script.onload = () => resolve();
-          script.onerror = () => reject(new Error("Failed to load Three.js"));
-          document.body.appendChild(script);
-        });
-      }
+      const win = typeof window !== "undefined" ? (window as unknown as VantaWindow) : null;
+      if (!win) return;
 
-      // 2. Load Vanta Fog if not already loaded
-      if (!(window as any).VANTA || !(window as any).VANTA.FOG) {
+      win.THREE = THREE;
+
+      if (!win.VANTA || !win.VANTA.FOG) {
         await new Promise<void>((resolve, reject) => {
           const script = document.createElement("script");
           script.src = "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js";
@@ -34,9 +48,8 @@ export function RealisticFogBackground() {
         });
       }
 
-      // 3. Initialize Vanta Fog
       if (isMounted && containerRef.current && !vantaEffectRef.current) {
-        const VANTA = (window as any).VANTA;
+        const VANTA = win.VANTA;
         if (VANTA && VANTA.FOG) {
           vantaEffectRef.current = VANTA.FOG({
             el: containerRef.current,

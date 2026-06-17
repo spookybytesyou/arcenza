@@ -1,9 +1,10 @@
 "use client"
 
 import { useRef } from "react";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { LaserFlow } from "./LaserFlow";
-import { RealisticFogBackground } from "./realistic-fog-background";
+import { RealisticFogBackground } from "./fog-background";
 import { Button } from "@/components/ui/button";
 import GradientButton from "./ui/hero-cta-button";
 import { cn } from "@/lib/utils";
@@ -31,10 +32,9 @@ interface HeroBasicProps {
   className?: string;
 }
 
-interface Hero115Props extends HeroBasicProps { }
-type Props = Partial<Hero115Props>;
+type Props = Partial<HeroBasicProps>;
 
-const defaultProps: Hero115Props = {
+const defaultProps: HeroBasicProps = {
   heading: (
     <>
       One Platform for<br />
@@ -58,9 +58,9 @@ const defaultProps: Hero115Props = {
     },
   },
   image: {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/image-set/modern/saas-hero/saas-hero-1-16x9.png",
-    srcDark: "https://deifkwefumgah.cloudfront.net/shadcnblocks/image-set/modern/saas-hero/saas-hero-1-16x9-dark.png",
-    alt: "Hero Image Placeholder",
+    src: "/hrms-hero.png",
+    srcDark: "/hrms-hero.png",
+    alt: "Arcenza HRMS Dashboard",
   },
 };
 
@@ -106,6 +106,7 @@ const Hero = (props: Props) => {
             color2="#6398f5"
             color3="#a855f7"
           />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={revealImgRef}
             src="/hrms-hero-noise.png"
@@ -148,21 +149,30 @@ const Hero = (props: Props) => {
           </div>
           {image.srcDark ? (
             <>
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
+                width={1024}
+                height={576}
+                priority
                 className="mx-auto aspect-3/4 h-full max-h-[524px] w-full max-w-5xl rounded-lg border border-border object-cover object-top-left md:aspect-video md:object-top dark:hidden"
               />
-              <img
+              <Image
                 src={image.srcDark}
                 alt={image.alt}
+                width={1024}
+                height={576}
+                priority
                 className="mx-auto hidden aspect-3/4 h-full max-h-[524px] w-full max-w-5xl rounded-lg border border-border object-cover object-top-left md:aspect-video md:object-top dark:block"
               />
             </>
           ) : (
-            <img
+            <Image
               src={image.src}
               alt={image.alt}
+              width={1024}
+              height={576}
+              priority
               className="mx-auto aspect-3/4 h-full max-h-[524px] w-full max-w-5xl rounded-lg border border-border object-cover object-top-left md:aspect-video md:object-top"
             />
           )}

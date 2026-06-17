@@ -60,7 +60,7 @@ interface Navbar1Props {
 const Navbar = ({
   logo = {
     url: "https://www.arcenza.com",
-    src: "./arcenza-logo.svg",
+    src: "/arcenza-logo.svg",
     alt: "logo",
     title: "Arcenza",
   },
@@ -150,6 +150,7 @@ const Navbar = ({
           <div className="flex items-center gap-24">
             {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={logo.src}
                 className="max-h-8 dark:invert"
@@ -182,6 +183,7 @@ const Navbar = ({
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={logo.src}
                 className="max-h-8 dark:invert"
@@ -198,6 +200,7 @@ const Navbar = ({
                 <SheetHeader>
                   <SheetTitle>
                     <a href={logo.url} className="flex items-center gap-2">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={logo.src}
                         className="max-h-8 dark:invert"
