@@ -121,7 +121,7 @@ const Hero = (props: Props) => {
       <div className="container mx-auto">
         <div className="flex flex-col gap-5">
           <div className="relative isolate flex flex-col items-center md:items-start gap-5">
-            <h1 className="mx-auto md:mx-0 max-w-xl text-center md:text-left text-4xl font-semibold tracking-tight text-pretty md:text-5xl lg:max-w-3xl lg:text-6xl">
+            <h1 className="mx-auto md:mx-0 max-w-xl text-center md:text-left text-5xl font-semibold tracking-tight text-pretty md:text-6xl lg:max-w-3xl lg:text-7xl">
               {heading}
             </h1>
             <p className="mx-auto md:mx-0 max-w-5xl text-center md:text-left text-lg text-balance text-foreground md:text-xl">
