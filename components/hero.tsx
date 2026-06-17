@@ -106,7 +106,7 @@ const Hero = (props: Props) => {
           />
           <img
             ref={revealImgRef}
-            src="/hrms-hero.png"
+            src="/hrms-hero-noise.png"
             alt="Reveal effect background"
             className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block"
             style={{
