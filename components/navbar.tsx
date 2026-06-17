@@ -59,10 +59,10 @@ interface Navbar1Props {
 
 const Navbar = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+    url: "https://www.arcenza.com",
+    src: "./arcenza-logo.svg",
     alt: "logo",
-    title: "Shadcnblocks.com",
+    title: "Arcenza",
   },
   menu = [
     { title: "Home", url: "#" },
@@ -147,7 +147,7 @@ const Navbar = ({
       <div className="container mx-auto px-4">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-12">
             {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
               <img
