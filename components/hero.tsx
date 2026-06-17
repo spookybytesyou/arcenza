@@ -98,7 +98,7 @@ const Hero = (props: Props) => {
       <div className="absolute inset-0 -z-10 bg-[#050508] overflow-hidden">
         <LaserFlow
           horizontalBeamOffset={0.06}
-          verticalBeamOffset={0.025}
+          verticalBeamOffset={0.015}
           color="#6398f5"
         />
         <img
