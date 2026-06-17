@@ -160,7 +160,7 @@ const Navbar = ({
               </span>
             </a>
             <div className="flex items-center">
-              <NavigationMenu>
+              <NavigationMenu delayDuration={0}>
                 <NavigationMenuList>
                   {menu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
