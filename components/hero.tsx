@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { LaserFlow } from "./LaserFlow";
 import { RealisticFogBackground } from "./realistic-fog-background";
 import { Button } from "@/components/ui/button";
+import GradientButton from "./ui/hero-cta-button";
 import { cn } from "@/lib/utils";
 
 interface Image {
@@ -107,7 +108,7 @@ const Hero = (props: Props) => {
           />
           <img
             ref={revealImgRef}
-            src="/hrms-hero.png"
+            src="/hrms-hero-noise.png"
             alt="Reveal effect background"
             className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block"
             style={{
@@ -136,12 +137,12 @@ const Hero = (props: Props) => {
             </p>
             <div className="flex flex-col items-center md:items-start gap-3 pt-3 pb-28">
               {buttons?.primary && (
-                <Button size="lg" asChild className="w-full sm:w-auto">
-                  <a href={buttons.primary.url}>
+                <a href={buttons.primary.url} className="w-full sm:w-auto">
+                  <GradientButton>
                     {buttons.primary.text}
                     <ArrowRight className="size-4" />
-                  </a>
-                </Button>
+                  </GradientButton>
+                </a>
               )}
             </div>
           </div>
