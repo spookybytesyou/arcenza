@@ -96,27 +96,29 @@ const Hero = (props: Props) => {
       onMouseLeave={handleMouseLeave}
     >
       <div className="absolute inset-0 -z-10 bg-[#050508] overflow-hidden">
-        <LaserFlow
-          horizontalBeamOffset={0.06}
-          verticalBeamOffset={0.015}
-          color="#6398f5"
-        />
-        <img
-          ref={revealImgRef}
-          src="/hrms-hero.png"
-          alt="Reveal effect background"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block"
-          style={{
-            mixBlendMode: "lighten",
-            opacity: 0.1,
-            "--mx": "-9999px",
-            "--my": "-9999px",
-            WebkitMaskImage: "radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 80px, rgba(255,255,255,0.6) 180px, rgba(255,255,255,0.25) 280px, rgba(255,255,255,0) 360px)",
-            maskImage: "radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 80px, rgba(255,255,255,0.6) 180px, rgba(255,255,255,0.25) 280px, rgba(255,255,255,0) 360px)",
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-          } as React.CSSProperties}
-        />
+        <div className="absolute inset-x-0 top-0 bottom-28 md:bottom-36">
+          <LaserFlow
+            horizontalBeamOffset={0.06}
+            verticalBeamOffset={0.015}
+            color="#6398f5"
+          />
+          <img
+            ref={revealImgRef}
+            src="/hrms-hero.png"
+            alt="Reveal effect background"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block"
+            style={{
+              mixBlendMode: "lighten",
+              opacity: 0.1,
+              "--mx": "-9999px",
+              "--my": "-9999px",
+              WebkitMaskImage: "radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 80px, rgba(255,255,255,0.6) 180px, rgba(255,255,255,0.25) 280px, rgba(255,255,255,0) 360px)",
+              maskImage: "radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 80px, rgba(255,255,255,0.6) 180px, rgba(255,255,255,0.25) 280px, rgba(255,255,255,0) 360px)",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+            } as React.CSSProperties}
+          />
+        </div>
       </div>
       <div className="container mx-auto">
         <div className="flex flex-col gap-5">
@@ -158,6 +160,61 @@ const Hero = (props: Props) => {
               className="mx-auto aspect-3/4 h-full max-h-[524px] w-full max-w-5xl rounded-lg border border-border object-cover object-top-left md:aspect-video md:object-top"
             />
           )}
+
+          <div className="mx-auto w-full max-w-5xl mt-12 md:mt-16 flex flex-col gap-3 text-center md:text-left">
+            <p className="text-sm md:text-base text-muted-foreground">
+              Everything you need to manage your workforce:
+            </p>
+            {/* Mobile Marquee View */}
+            <div className="w-full overflow-hidden relative md:hidden py-1 mask-marquee">
+              <div className="flex w-max gap-6 animate-marquee">
+                {/* First set */}
+                <div className="flex items-center gap-6 text-sm font-semibold text-foreground">
+                  <span>Employee Profiles</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Smart Payroll</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Time Tracking</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Leave Management</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Attendance Tracking</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>ATS</span>
+                </div>
+                {/* Duplicate set for looping */}
+                <div className="flex items-center gap-6 text-sm font-semibold text-foreground select-none" aria-hidden="true">
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Employee Profiles</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Smart Payroll</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Time Tracking</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Leave Management</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>Attendance Tracking</span>
+                  <span className="text-muted-foreground/30 select-none">·</span>
+                  <span>ATS</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Static List View */}
+            <div className="hidden md:flex flex-wrap items-center justify-start gap-x-3 gap-y-2 text-sm md:text-base font-semibold text-foreground">
+              <span>Employee Profiles</span>
+              <span className="text-muted-foreground/30 select-none">·</span>
+              <span>Smart Payroll</span>
+              <span className="text-muted-foreground/30 select-none">·</span>
+              <span>Time Tracking</span>
+              <span className="text-muted-foreground/30 select-none">·</span>
+              <span>Leave Management</span>
+              <span className="text-muted-foreground/30 select-none">·</span>
+              <span>Attendance Tracking</span>
+              <span className="text-muted-foreground/30 select-none">·</span>
+              <span>ATS</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
