@@ -24,6 +24,8 @@ type Props = {
   falloffStart?: number;
   fogFallSpeed?: number;
   color?: string;
+  color2?: string;
+  color3?: string;
 };
 
 const VERT = `
@@ -62,6 +64,8 @@ uniform float uDecay;
 uniform float uFalloffStart;
 uniform float uFogFallSpeed;
 uniform vec3 uColor;
+uniform vec3 uColor2;
+uniform vec3 uColor3;
 uniform float uFade;
 
 // Core beam/flare shaping and dynamics
@@ -245,7 +249,14 @@ void mainImage(out vec4 fc,in vec2 frag){
     float LF=L+fog;
     float dith=(h21(frag)-0.5)*(DITHER_STRENGTH/255.0);
     float tone=g(LF+w);
-    vec3 col=tone*uColor+dith;
+    float mixFactor = clamp((uvc.x / 100.0) * 0.7 + (uvc.y / 150.0) * 0.3 + 0.5, 0.0, 1.0);
+    vec3 mixedColor;
+    if (mixFactor < 0.5) {
+        mixedColor = mix(uColor, uColor2, mixFactor * 2.0);
+    } else {
+        mixedColor = mix(uColor2, uColor3, (mixFactor - 0.5) * 2.0);
+    }
+    vec3 col=tone*mixedColor+dith;
     float alpha=clamp(g(L+w*0.6)+dith*0.6,0.0,1.0);
     float nxE=abs((frag.x-C.x)*invW),xF=pow(clamp(1.0-smoothstep(EDGE_X0,EDGE_X1,nxE),0.0,1.0),EDGE_X_GAMMA);
     float scene=LF+max(0.0,w)*0.5,hi=smoothstep(EDGE_LUMA_T0,EDGE_LUMA_T1,scene);
@@ -294,7 +305,9 @@ export const LaserFlow: React.FC<Props> = ({
   decay = 1.1,
   falloffStart = 1.2,
   fogFallSpeed = 0.6,
-  color = '#FF79C6'
+  color = '#22D3EE',
+  color2 = '#6398F5',
+  color3 = '#A855F7'
 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -371,6 +384,8 @@ export const LaserFlow: React.FC<Props> = ({
       uFalloffStart: { value: falloffStart },
       uFogFallSpeed: { value: fogFallSpeed },
       uColor: { value: new THREE.Vector3(1, 1, 1) },
+      uColor2: { value: new THREE.Vector3(1, 1, 1) },
+      uColor3: { value: new THREE.Vector3(1, 1, 1) },
       uFade: { value: hasFadedRef.current ? 1 : 0 }
     };
     uniformsRef.current = uniforms;
@@ -589,6 +604,12 @@ export const LaserFlow: React.FC<Props> = ({
 
     const { r, g, b } = hexToRGB(color || '#FFFFFF');
     uniforms.uColor.value.set(r, g, b);
+
+    const { r: r2, g: g2, b: b2 } = hexToRGB(color2 || '#FFFFFF');
+    uniforms.uColor2.value.set(r2, g2, b2);
+
+    const { r: r3, g: g3, b: b3 } = hexToRGB(color3 || '#FFFFFF');
+    uniforms.uColor3.value.set(r3, g3, b3);
   }, [
     wispDensity,
     mouseTiltStrength,
@@ -605,7 +626,9 @@ export const LaserFlow: React.FC<Props> = ({
     decay,
     falloffStart,
     fogFallSpeed,
-    color
+    color,
+    color2,
+    color3
   ]);
 
   return <div ref={mountRef} className={`w-full h-full relative ${className || ''}`} style={style} />;

@@ -100,7 +100,9 @@ const Hero = (props: Props) => {
           <LaserFlow
             horizontalBeamOffset={0.06}
             verticalBeamOffset={0.015}
-            color="#6398f5"
+            color="#22d3ee"
+            color2="#6398f5"
+            color3="#a855f7"
           />
           <img
             ref={revealImgRef}
